@@ -4,22 +4,23 @@ fun main() {
     val scanner = Scanner(System.`in`)
 
     println("Enter a numeric value:")
-    val value = scanner.nextDouble()
+    val value = scanner.nextDouble() //”Value” variable accept input from user in numeric value
 
     println("Enter the current unit of measurement:")
-    val currentUnit = scanner.next().toLowerCase()
+    val currentUnit = scanner.next().lowercase() //” currentUnit” variable accept input in measurement from user
 
     println("Enter the target unit of measurement:")
-    val targetUnit = scanner.next().toLowerCase()
+    val targetUnit = scanner.next().lowercase() // “targetUnit” variable accept unit input in measurement
 
-    val convertedValue = convertMeasurement(value, currentUnit, targetUnit)
-    if (convertedValue != null) {
+    val convertedValue = convertMeasurement(value, currentUnit, targetUnit) 
+  //if condition return user message based on user input
+  if (convertedValue != null) {
         println("Converted value: $convertedValue")
     } else {
         println("Invalid units of measurement.")
     }
 }
-
+// “convertMeasurement”  function process inputed values to convert based on user input
 fun convertMeasurement(value: Double, currentUnit: String, targetUnit: String): Double? {
     return when {
         currentUnit == "km" && targetUnit == "mi" -> value * 0.62
