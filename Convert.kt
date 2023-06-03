@@ -1,70 +1,36 @@
-import java.util.*
+import java.util.Scanner
 
 fun main() {
     val scanner = Scanner(System.`in`)
 
-    println("Enter the value to convert:")
+    println("Enter a numeric value:")
     val value = scanner.nextDouble()
 
     println("Enter the current unit of measurement:")
-    val unit = scanner.next()
-4
-    val result = when (unit.toLowerCase()) {
-        "km" -> convertKilometersToMiles(value)
-        "mi" -> convertMilesToKilometers(value)
-        "cm" -> convertCentimetersToInches(value)
-        "in" -> convertInchesToCentimeters(value)
-        "kg" -> convertKilogramsToPounds(value)
-        "lb" -> convertPoundsToKilograms(value)
-        "g" -> convertGramsToOunces(value)
-        "oz" -> convertOuncesToGrams(value)
-        "l" -> convertLitersToCups(value)
-        "cup" -> convertCupsToLiters(value)
-        else -> {
-            println("Unsupported unit of measurement.")
-            return
-        }
+    val currentUnit = scanner.next().toLowerCase()
+
+    println("Enter the target unit of measurement:")
+    val targetUnit = scanner.next().toLowerCase()
+
+    val convertedValue = convertMeasurement(value, currentUnit, targetUnit)
+    if (convertedValue != null) {
+        println("Converted value: $convertedValue")
+    } else {
+        println("Invalid units of measurement.")
     }
-
-    println("Result: $result")
 }
 
-fun convertKilometersToMiles(kilometers: Double): Double {
-    return kilometers * 0.621371
-}
-
-fun convertMilesToKilometers(miles: Double): Double {
-    return miles * 1.60934
-}
-
-fun convertCentimetersToInches(centimeters: Double): Double {
-    return centimeters * 0.393701
-}
-
-fun convertInchesToCentimeters(inches: Double): Double {
-    return inches * 2.54
-}
-
-fun convertKilogramsToPounds(kilograms: Double): Double {
-    return kilograms * 2.20462
-}
-
-fun convertPoundsToKilograms(pounds: Double): Double {
-    return pounds * 0.453592
-}
-
-fun convertGramsToOunces(grams: Double): Double {
-    return grams * 0.035274
-}
-
-fun convertOuncesToGrams(ounces: Double): Double {
-    return ounces * 28.3495
-}
-
-fun convertLitersToCups(liters: Double): Double {
-    return liters * 4.16667
-}
-
-fun convertCupsToLiters(cups: Double): Double {
-    return cups * 0.24
+fun convertMeasurement(value: Double, currentUnit: String, targetUnit: String): Double? {
+    return when {
+        currentUnit == "km" && targetUnit == "mi" -> value * 0.62
+        currentUnit == "mi" && targetUnit == "km" -> value * 1.61
+        currentUnit == "cm" && targetUnit == "in" -> value * 0.39
+        currentUnit == "in" && targetUnit == "cm" -> value * 2.54
+        currentUnit == "kg" && targetUnit == "lb" -> value * 2.2
+        currentUnit == "lb" && targetUnit == "kg" -> value * 0.45
+        currentUnit == "g" && targetUnit == "oz" -> value * 0.04
+        currentUnit == "oz" && targetUnit == "g" -> value * 28.35
+       
+        else -> null
+    }
 }
